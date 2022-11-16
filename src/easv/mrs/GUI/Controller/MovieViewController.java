@@ -2,8 +2,11 @@ package easv.mrs.GUI.Controller;
 
 import easv.mrs.BE.Movie;
 import easv.mrs.GUI.Model.MovieModel;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
@@ -12,9 +15,16 @@ import java.util.ResourceBundle;
 
 public class MovieViewController implements Initializable {
 
-
-    public TextField txtMovieSearch;
-    public ListView<Movie> lstMovies;
+    @FXML
+    private TextField txtMovieSearch;
+    @FXML
+    private ListView<Movie> lstMovies;
+    @FXML
+    private Button btnAddView;
+    @FXML
+    private TextField txtYear;
+    @FXML
+    private TextField txtTitle;
 
     private MovieModel movieModel;
 
@@ -54,5 +64,16 @@ public class MovieViewController implements Initializable {
     }
 
 
+    public void handleAddNewMovie(ActionEvent actionEvent) {
+        System.out.println("FIXME... add new movie" + txtTitle.getText());
 
+        String title = txtTitle.getText();
+        int year = Integer.parseInt(txtYear.getText());
+
+        try {
+            movieModel.createNewMovie(title, year);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

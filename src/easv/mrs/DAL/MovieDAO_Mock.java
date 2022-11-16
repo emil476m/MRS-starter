@@ -37,6 +37,7 @@ public class MovieDAO_Mock implements IMovieDataAccess {
 
     @Override
     public Movie createMovie(String title, int year) throws Exception {
+        System.out.println(""+ title +" " + year);
         return null;
     }
 
