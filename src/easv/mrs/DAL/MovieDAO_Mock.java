@@ -2,6 +2,8 @@ package easv.mrs.DAL;
 
 import easv.mrs.BE.Movie;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,6 +17,7 @@ public class MovieDAO_Mock implements IMovieDataAccess {
 
     private static final String MOVIES_FILE = "data/movie_titles.txt";
     private Path pathToFile = Path.of(MOVIES_FILE);
+    private Path Movie_temp = Path.of("C:\\Users\\emilw\\IdeaProjects\\MRS-starter\\data\\temp_movies");
 
 
     @Override
@@ -41,7 +44,6 @@ public class MovieDAO_Mock implements IMovieDataAccess {
 
     @Override
     public Movie createMovie(String title, int year) throws Exception {
-
         int nextId = getNextId();
 
         String newLine = nextId + "," + year + "," + title;
@@ -68,6 +70,18 @@ public class MovieDAO_Mock implements IMovieDataAccess {
 
         Movie lastMovie = movies.get(movies.size()-1);
         return lastMovie.getId() + 1;
+    }
+    private  void saveTemp() throws IOException {
+        List<Movie> movies = getAllMovies();
+        try (FileWriter fw = new FileWriter(Movie_temp.toFile()); BufferedWriter bw = new BufferedWriter(fw))
+        {
+            for (Movie mov:movies)
+            {
+                //bw.append("INSERT INTO Movie VALUES ('"+ mov.getTitle() + "', " + mov.getYear()+");" +"\r\n");
+                bw.append(mov.getTitle() + "," + mov.getYear() +"\r\n");
+                bw.flush();
+            }
+        }
     }
 
 }

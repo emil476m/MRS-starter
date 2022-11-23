@@ -36,4 +36,20 @@ public class MovieModel {
         moviesToBeViewed.add(m);
 
     }
+
+    public void updateMovie(Movie updatedMovie) throws Exception {
+        //Call BLL
+        // update movie ind DB
+        movieManager.updateMovie(updatedMovie);
+
+        // update ListView
+        moviesToBeViewed.clear();
+        moviesToBeViewed.addAll(movieManager.getAllMovies());
+    }
+
+    public void deleteMovie(Movie toBeDeletedMovie) throws Exception {
+        movieManager.deleteMovie(toBeDeletedMovie);
+        // update ListView
+        moviesToBeViewed.remove(toBeDeletedMovie);
+    }
 }
